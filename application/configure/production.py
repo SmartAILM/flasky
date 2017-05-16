@@ -2,6 +2,6 @@
 # time: 2015/09/23 08:31
 # author: liukaizeng
 
-from base import *
+from .base import *
 
 DEBUG = False

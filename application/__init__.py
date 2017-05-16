@@ -7,13 +7,13 @@ import os
 import redis
 
 from flask import Flask, url_for, sessions, g
-from flask.ext.login import LoginManager, AnonymousUserMixin
-from flask.ext.session import RedisSessionInterface
+from flask_login import LoginManager, AnonymousUserMixin
+from flask_session import RedisSessionInterface
 
 from application.configure import setting
 from application.models.user import User
 
-import views
+from . import views
 
 Blueprints = (
     (views.index_bp, ''),
@@ -86,8 +86,8 @@ def create_app(configure=None):
     configure_blueprints(_app, Blueprints)
     configure_url_for_with_timestamp(_app)
     configure_login_manager(_app)
-    configure_redis_session_interface(_app)
-    configure_subdomain(_app)
+    ##configure_redis_session_interface(_app)
+    ##configure_subdomain(_app)
 
     return _app
 

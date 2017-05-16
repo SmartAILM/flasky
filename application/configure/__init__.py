@@ -4,9 +4,9 @@
 
 import os
 
-import development
-import production
-import testing
+from . import development
+from . import production
+from . import testing
 
 __all__ = ['setting']
 
@@ -18,7 +18,7 @@ setting = {
     "testing": testing
 }.get(current_env, "development")
 
-print "current_env = %s" % current_env
+print ("current_env = %s" % current_env)
 
 
 

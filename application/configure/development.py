@@ -2,11 +2,11 @@
 # time: 2015/09/23 08:20
 # author: liukaizeng
 
-from base import *
+from .base import *
 
 DEBUG = True
 
-SERVER_NAME = 'lkz.com:5000'
+SERVER_NAME = 'smartai.com:5000'
 
 EMAIL_HOST = 'smtp.126.com'
 EMAIL_PORT = 25

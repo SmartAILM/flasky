@@ -34,4 +34,4 @@ if __name__ == '__main__':
         avatar_hash = Column(String(32))
 
     Base.metadata.create_all(engine)
-    print "ok"
+    print ("ok")

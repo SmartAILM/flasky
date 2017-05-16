@@ -2,17 +2,17 @@
 # author: lkz
 # date: 2015/10/15 17:14
 
-from flask import Blueprint, url_for
+from flask import Blueprint, url_for, g, request
 
 
-test_bp = Blueprint('test', __name__, subdomain="<subdomin>")
+test_bp = Blueprint('test', __name__, subdomain='<subdomain>')
 
 
 @test_bp.route('/')
-def test_arrival(subdomin):
-    return "<h2 style='color:red'>%s</h2>" % url_for("test.test_arrival")
+def test_arrival(subdomain):
+    return "<h2 style='color:red'>%s</h2>" %  request.url
 
 
 @test_bp.route('/index')
-def test_sub_domain():
+def test_sub_domain(subdomain):
     return "success"
