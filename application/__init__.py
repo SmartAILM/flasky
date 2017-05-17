@@ -7,7 +7,8 @@ import os
 import redis
 
 from flask import Flask, url_for, sessions, g
-from flask_login import LoginManager, AnonymousUserMixin
+from flask_login import LoginManager, AnonymousUserMixin, current_user
+from flask_bootstrap import Bootstrap
 from flask_session import RedisSessionInterface
 
 from application.configure import setting
@@ -26,7 +27,7 @@ def configure_blueprints(app, blueprints):
         app.register_blueprint(view, url_prefix=url_prefix)
 
     # test subDomain
-    app.register_blueprint(views.test_bp)
+    #app.register_blueprint(views.test_bp)
 
 
 def configure_url_for_with_timestamp(app):
@@ -88,12 +89,17 @@ def create_app(configure=None):
     configure_login_manager(_app)
     ##configure_redis_session_interface(_app)
     ##configure_subdomain(_app)
-
+    Bootstrap(_app)
+    _app.config['BOOTSTRAP_SERVE_LOCAL'] = True
     return _app
-
 
 app = create_app(setting)
 
+@app.before_request
+def before_request():
+    g.user = current_user
+
+
+
 if __name__ == '__main__':
     app.run()
-

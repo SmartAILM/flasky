@@ -1,0 +1,57 @@
+<!-- extend base layout -->
+{% extends "layout.html" %}
+
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">默安科技</a>
+    </div>
+    <div class="navbar-collapse collapse">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="display:table;height:100%;">
+  <div style="display: table-cell;vertical-align: middle;">
+    <div style="text-align:center;">
+      <h1 style="display:inline-block;">泄露检测与修复管理系统</h1>
+    </div>
+    <form class="form-signin" action="" role="form" method="post" style="margin-left:auto;margin-right:auto;width:25%;">
+      {{ form.hidden_tag() }}
+      <div class="control-group">
+        <div class="controls">
+          <div  style="text-align:center">
+            <h2 class="form-signin-heading" style="display:inline-block;"> {{ _('Please Sign In') }} </h2>
+          </div>
+          <label style="letter-spacing:0ex;">{{ _("Username")}}</label> : {{ form.nickname(placeholder=_('Username'), class="form-group") }} <br />
+          <label style="letter-spacing:1em;">密</label><label style="letter-spacing:0ex;">码</label> : {{ form.password(placeholder=_('Password') , class="form-group") }}
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls"> 
+          <input type="checkbox" value="remember-me"> {{ _('Remember me') }}
+        </div>
+      </div>
+      <div class="control-group" style="text-align:center;">
+        <div class="controls" style="display:inline-block;">
+          <button class="btn btn-primary" type="submit">{{ _('Sign In') }}</button>
+        </div>
+      </div>        
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+

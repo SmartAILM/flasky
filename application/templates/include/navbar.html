@@ -1,0 +1,29 @@
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">This is a title</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li {% if  view == 'index' %} class="active" {% endif %}><a href="#">主页</a></li>
+        <li {% if  view == 'other' %} class="active" {% endif %}><a href="#">其他</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> {{ g.user.nickname }}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

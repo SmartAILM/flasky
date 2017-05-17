@@ -1,0 +1,22 @@
+{% macro pagination_widget(pagination, endpoint, cat, foreign_id, factory_id) %}
+<ul class="pagination">
+  <div>
+    <p>共<label id="total-items">{{pagination.total}}</label>笔数据，本页显示<label id="current-items-number">{{pagination.items|length}}</label>笔(<label id="per-page">{{pagination.per_page}}</label>笔/页) 页数<label id="current-page">{{pagination.page}}</label>/<label id="total-page">{{pagination.pages}}</label></p>
+  </div>
+  <li id="first-page" {% if pagination.page == 1 %} class="disabled" {% endif %}>
+    <a href="{{url_for(endpoint, category=cat, page=1, foreign_id=foreign_id, factory_id=factory_id, **kwargs) }}">第一页</a>
+  </li>
+  <li id="prev-page" {% if not pagination.has_prev %} class="disabled" {% endif %}>
+    <a href="{% if pagination.has_prev %} {{url_for(endpoint, category=cat, page=pagination.page-1, foreign_id=foreign_id, factory_id=factory_id, **kwargs) }} {% else %}# {% endif %}">前一页</a>
+  </li>
+  <li id="next-page" {% if not pagination.has_next %} class="disabled" {% endif %}>
+    <a href="{% if pagination.has_next %} {{url_for(endpoint, category=cat, page=pagination.page+1, foreign_id=foreign_id, factory_id=factory_id, **kwargs) }} {% else %}# {% endif %}">后一页</a>
+  </li>
+  <li id="last-page" {% if pagination.pages == 0 or pagination.page == pagination.pages %} class="disabled" {% endif %}>
+    <a href="{{url_for(endpoint, category=cat, page=pagination.pages, foreign_id=foreign_id, factory_id=factory_id, **kwargs) }}">最后一页</a>
+  </li>
+</ul>
+<label>至第</label><input type="text" id="page-index" style="width:40px;"><label>页</label>
+<input type="submit" id="page-goto" name="page-goto" value="{{_('Go')}}">
+
+{% endmacro %}

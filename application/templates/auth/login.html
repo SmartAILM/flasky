@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 
-{% block javascript %}
-    <script type="text/javascript">
-
-    </script>
-{% endblock %}
-
-{% block body_content %}
+{% block content %}
     <form class="form login-form" method="post">
         {{ form.csrf_token }}
 
