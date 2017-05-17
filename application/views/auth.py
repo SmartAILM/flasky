@@ -4,7 +4,7 @@
 
 from flask import render_template, request, redirect, url_for, abort
 from flask.blueprints import Blueprint
-from flask.ext.login import login_required, login_user, logout_user, current_user
+from flask_login import login_required, login_user, logout_user, current_user
 from application.utils.redis_cli import redis_cli
 
 from application.forms.user import LoginForm, RegisterForm

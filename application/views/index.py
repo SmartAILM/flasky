@@ -4,7 +4,7 @@
 
 from flask import render_template
 from flask.blueprints import Blueprint
-from flask.ext.login import login_required
+from flask_login import login_required
 
 index_bp = Blueprint('index', __name__, template_folder="../templates")
 

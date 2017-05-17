@@ -6,7 +6,7 @@ import redis
 
 from sqlalchemy import Column, Integer, String, Boolean
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask.ext.login import UserMixin
+from flask_login import UserMixin
 
 from application.models.base import Base, db_session
 from application.utils.redis_cli import redis_cli

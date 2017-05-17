@@ -2,7 +2,7 @@
 # time: 2015/09/16 22:38
 # author: liukaizeng
 
-from flask.ext.script import Manager
+from flask_script import Manager
 from application import app
 
 manager = Manager(app)

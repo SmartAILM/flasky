@@ -2,8 +2,8 @@
 # author: lkz
 # date: 2015/09/28 17:51
 
-from flask.ext.wtf import Form
-from flask.ext.login import login_user
+from flask_wtf import Form
+from flask_login import login_user
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired, Email, Length, ValidationError, EqualTo
 
