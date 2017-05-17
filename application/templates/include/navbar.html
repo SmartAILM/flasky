@@ -17,7 +17,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> {{ g.user.nickname }}<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> {{ g.user.username }}<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
           </ul>

@@ -8,12 +8,12 @@ from sqlalchemy import Column, Integer, String, Boolean
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-from application.models.base import Base, db_session
 from application.utils.redis_cli import redis_cli
 from application.configure import setting
+from application import db
 
 
-class User(Base, UserMixin):
+class User(db.Model):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
@@ -22,6 +22,12 @@ class User(Base, UserMixin):
     password_hash = Column(String(128))
     active = Column(Boolean, default=False)
     avatar_hash = Column(String(32))
+
+
+    def __init__(self, email, username, password):
+        self.email = email
+        self.username = username
+        self.password = password
 
 
     @staticmethod
@@ -44,10 +50,14 @@ class User(Base, UserMixin):
             db_session.rollback()
 
     def get_id(self):
-        return unicode(self.id)
+        return str(self.id)
 
     def is_active(self):
-        return self.active
+        #return self.active
+        return True
+
+    def is_authenticated(self):
+        return True
 
     @property
     def password(self):

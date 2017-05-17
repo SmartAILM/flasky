@@ -7,8 +7,8 @@ from flask.blueprints import Blueprint
 from flask_login import login_required, login_user, logout_user, current_user
 from application.utils.redis_cli import redis_cli
 
+from application import db
 from application.forms.user import LoginForm, RegisterForm
-from application.models.base import db_session
 from application.models.user import User
 
 auth_bp = Blueprint('auth', __name__, template_folder="../templates")
@@ -38,17 +38,14 @@ def register():
     }
 
     if request.method == 'POST' and form.validate_on_submit():
-        user = User()
-        user.email = form.email.data.strip().lower()
-        user.password = form.password.data.strip()
-        user.username = user.email
-
-        db_session.add(user)
-        db_session.commit()
-
+        user = User(form.email.data.strip().lower(),
+                    form.email.data.strip().lower(),
+                    form.password.data.strip())
+        db.session.add(user)
+        db.session.commit()
         login_user(user)
 
-        user.send_register_mail(request.host_url)
+        #user.send_register_mail(request.host_url)
 
         return redirect(url_for("index.index"))
 
@@ -77,7 +74,7 @@ def active_account():
 
     if user.email == email:
         user.active = True
-        db_session.commit()
+        db.session.commit()
         login_user(user)
 
     return redirect(url_for('index.index'))

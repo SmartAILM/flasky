@@ -19,12 +19,16 @@ REDIS_HOST = '10.209.68.178'
 REDIS_PORT = 6379
 
 DB = {
-    'host': '10.209.68.178',
+    'host': '127.0.0.1',
     'port': 3306,
-    'user': 'lkz',
-    'password': 'asdfjkl;',
+    'user': 'smart',
+    'password': 'admin123',
     'db_name': 'blog'
 }
+
+BOOTSTRAP_SERVE_LOCAL = True
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{user}:{password}@{host}:{port}/{db_name}".format(**DB)
+SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 # REDIS_HOST = '192.168.199.191'
 # REDIS_PORT = 6379

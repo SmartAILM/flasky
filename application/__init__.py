@@ -9,25 +9,15 @@ import redis
 from flask import Flask, url_for, sessions, g
 from flask_login import LoginManager, AnonymousUserMixin, current_user
 from flask_bootstrap import Bootstrap
+from flask_sqlalchemy import SQLAlchemy
 from flask_session import RedisSessionInterface
 
 from application.configure import setting
-from application.models.user import User
 
-from . import views
-
-Blueprints = (
-    (views.index_bp, ''),
-    (views.auth_bp, '/auth')
-)
-
-
-def configure_blueprints(app, blueprints):
-    for view, url_prefix in blueprints:
-        app.register_blueprint(view, url_prefix=url_prefix)
-
-    # test subDomain
-    #app.register_blueprint(views.test_bp)
+app = Flask(setting.APP_NAME)
+app.config.from_object(setting)
+db = SQLAlchemy(app)
+Bootstrap(app)
 
 
 def configure_url_for_with_timestamp(app):
@@ -49,6 +39,12 @@ def configure_url_for_with_timestamp(app):
         return url_for(endpoint, **values)
 
 
+configure_url_for_with_timestamp(app)
+
+
+from application.models.user import User
+
+
 def configure_login_manager(app):
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
@@ -61,6 +57,30 @@ def configure_login_manager(app):
             return User.query.get(user_id)
         else:
             return AnonymousUserMixin()
+
+
+configure_login_manager(app)
+
+##configure_redis_session_interface(_app)
+##configure_subdomain(_app)
+
+
+from . import views
+Blueprints = (
+    (views.index_bp, ''),
+    (views.auth_bp, '/auth')
+)
+
+
+def configure_blueprints(app, blueprints):
+    for view, url_prefix in blueprints:
+        app.register_blueprint(view, url_prefix=url_prefix)
+
+    # test subDomain
+    #app.register_blueprint(views.test_bp)
+
+
+configure_blueprints(app, Blueprints)
 
 
 def configure_redis_session_interface(app):
@@ -78,22 +98,6 @@ def configure_subdomain(app):
         if 'subdomain' not in values:
             values['subdomain'] = g.subdomain
 
-
-def create_app(configure=None):
-    _app = Flask(setting.APP_NAME)
-
-    configure and _app.config.from_object(configure)
-
-    configure_blueprints(_app, Blueprints)
-    configure_url_for_with_timestamp(_app)
-    configure_login_manager(_app)
-    ##configure_redis_session_interface(_app)
-    ##configure_subdomain(_app)
-    Bootstrap(_app)
-    _app.config['BOOTSTRAP_SERVE_LOCAL'] = True
-    return _app
-
-app = create_app(setting)
 
 @app.before_request
 def before_request():
